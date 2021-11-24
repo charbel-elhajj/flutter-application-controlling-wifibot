@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
@@ -14,15 +13,13 @@ enum ScreenOrientation {
 /// [isPortraitDownSupported] is useful for tablets and it's set by default to false
 void setOrientation(Object? orientation, {bool isPortraitDownSupported = false}) {
   // The default orientation is portraitUp
-  List<DeviceOrientation> orientations = [
-    DeviceOrientation.portraitUp
-  ];
+  List<DeviceOrientation> orientations = [DeviceOrientation.portraitUp];
   // Different possible orientations depending on the orientation parameter
   switch (orientation) {
     case ScreenOrientation.portraitOnly:
       orientations = [
         DeviceOrientation.portraitUp,
-        if(isPortraitDownSupported) DeviceOrientation.portraitDown,
+        if (isPortraitDownSupported) DeviceOrientation.portraitDown,
       ];
       break;
     case ScreenOrientation.landscapeOnly:
@@ -34,7 +31,7 @@ void setOrientation(Object? orientation, {bool isPortraitDownSupported = false})
     case ScreenOrientation.rotating:
       orientations = [
         DeviceOrientation.portraitUp,
-        if(isPortraitDownSupported) DeviceOrientation.portraitDown,
+        if (isPortraitDownSupported) DeviceOrientation.portraitDown,
         DeviceOrientation.landscapeLeft,
         DeviceOrientation.landscapeRight,
       ];

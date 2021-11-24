@@ -95,8 +95,7 @@ class Commands {
       }
     }
 
-    _commandPacket[lengthCommandUDP-2] = crc & 0x00FF;
-    _commandPacket[lengthCommandUDP-1] = crc >> 8;
-
+    _commandPacket[lengthCommandUDP - 2] = crc & 0x00FF;
+    _commandPacket[lengthCommandUDP - 1] = crc >> 8;
   }
 }

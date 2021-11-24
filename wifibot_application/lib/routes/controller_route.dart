@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:wifibot_application/custom_widgets/joypad.dart';
 
@@ -19,7 +18,6 @@ class ControllerRoute extends StatelessWidget {
         Container(
           color: Colors.blue,
         ),
-
         Padding(
           padding: const EdgeInsets.all(40.0),
           child: Row(
@@ -29,8 +27,7 @@ class ControllerRoute extends StatelessWidget {
                   width: 130,
                   child: FittedBox(
                     child: Joypad(),
-                  )
-              ),
+                  )),
             ],
           ),
         )
@@ -38,4 +35,3 @@ class ControllerRoute extends StatelessWidget {
     );
   }
 }
-

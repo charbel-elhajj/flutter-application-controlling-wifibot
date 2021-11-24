@@ -19,22 +19,19 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.home:
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
-            overlays: []);
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: []);
         return MaterialPageRoute(
           builder: (_) => TestCommunication(),
           settings: rotationSettings(settings, ScreenOrientation.portraitOnly),
         );
       case AppRoutes.settings:
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge,
-            overlays: []);
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: []);
         return MaterialPageRoute(
           builder: (_) => SettingsRoute(),
           settings: rotationSettings(settings, ScreenOrientation.portraitOnly),
         );
       case AppRoutes.controller:
-        SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive,
-            overlays: []);
+        SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive, overlays: []);
         return MaterialPageRoute(
           builder: (_) => ControllerRoute(),
           settings: rotationSettings(settings, ScreenOrientation.landscapeOnly),
@@ -48,7 +45,6 @@ class RouteGenerator {
 }
 
 /// Setting the arguments of the route
-RouteSettings rotationSettings(
-    RouteSettings settings, ScreenOrientation rotation) {
+RouteSettings rotationSettings(RouteSettings settings, ScreenOrientation rotation) {
   return RouteSettings(name: settings.name, arguments: rotation);
 }

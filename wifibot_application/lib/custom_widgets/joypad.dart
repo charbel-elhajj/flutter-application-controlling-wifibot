@@ -15,9 +15,9 @@ class _JoypadState extends State<Joypad> {
       base: JoystickBase(mode: JoystickMode.all),
       stickOffsetCalculator: const CircleStickOffsetCalculator(),
       listener: (details) {
-    setState(() {
-      print(" x: ${details.x} - y : ${details.y}");
-    });
+        setState(() {
+          print(" x: ${details.x} - y : ${details.y}");
+        });
       },
     );
   }

@@ -34,12 +34,8 @@ class _SettingsFormState extends State<SettingsForm> {
                 }
                 return null;
               },
-
             ),
           ],
         ));
   }
 }
-
-
-

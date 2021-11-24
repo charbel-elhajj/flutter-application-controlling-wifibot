@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
@@ -11,7 +10,6 @@ import 'package:wifibot_application/utils/wifibot_commands_lib/data_wifibot.dart
 
 ///  Class to manage the UDP connection  with the Wifibot.
 class ConnectionUDP {
-
   String wifibotIPAddress = WifibotConstants.wifiBotIPAddressDefault;
   int udpPortWifibotSendCommand = WifibotConstants.udpPortWifibotSendCommandDefault;
   int udpPortWifibotReceiveData = WifibotConstants.udpPortWifibotReceiveDataDefault;
@@ -22,17 +20,12 @@ class ConnectionUDP {
   bool dataRequestingIsInitialized = false;
 
   /// Constructor to change the default parameters
-  ConnectionUDP(
-      this.wifibotIPAddress,
-      this.udpPortWifibotSendCommand,
-      this.udpPortWifibotReceiveData,
-      this.cameraIPAddress,
-      this.cameraPort
-      );
+  ConnectionUDP(this.wifibotIPAddress, this.udpPortWifibotSendCommand, this.udpPortWifibotReceiveData,
+      this.cameraIPAddress, this.cameraPort);
 
   /// Method to send a command to the wifibot
-  void send(String commandString)  {
-    RawDatagramSocket.bind(wifibotIPAddress, udpPortWifibotSendCommand).then((RawDatagramSocket socket){
+  void send(String commandString) {
+    RawDatagramSocket.bind(wifibotIPAddress, udpPortWifibotSendCommand).then((RawDatagramSocket socket) {
       print('Datagram socket ready to send');
       print('${socket.address.address}:${socket.port}');
 
@@ -45,10 +38,10 @@ class ConnectionUDP {
   String receive() {
     String wifiBotResponse = "";
 
-    RawDatagramSocket.bind(wifibotIPAddress, udpPortWifibotReceiveData).then((RawDatagramSocket socket){
+    RawDatagramSocket.bind(wifibotIPAddress, udpPortWifibotReceiveData).then((RawDatagramSocket socket) {
       print('Datagram socket ready to receive');
       print('${socket.address.address}:${socket.port}');
-      socket.listen((RawSocketEvent e){
+      socket.listen((RawSocketEvent e) {
         Datagram? d = socket.receive();
         if (d == null) return;
 
@@ -62,38 +55,30 @@ class ConnectionUDP {
 
   /// Request data from the robot
   Map? receiveDataWifiBot() {
-
     Map? dataWifibotMap;
 
-
     // We need to send the message "init" at first.
-    if(!dataRequestingIsInitialized){
+    if (!dataRequestingIsInitialized) {
       send("init");
       String response = receive();
       // Then the robot should respond once with "OK".
-      if(response == "ok"){
+      if (response == "ok") {
         dataRequestingIsInitialized = true;
       } else {
         print("WARNING - OK NOT RECEIVED");
       }
 
-
-
       // Then we request the data
-      if(dataRequestingIsInitialized){
+      if (dataRequestingIsInitialized) {
         send("data");
         String rawDataString = receive();
         DataWifibot dataWifibot = DataWifibot.withRawDataPacketString(rawDataString);
         dataWifibotMap = dataWifibot.dataWifibotMap;
       }
-    }
-    else {
+    } else {
       print("NOT CONNECTED - receiveDataWifiBot");
     }
 
-
     return dataWifibotMap;
   }
-
 }
-

@@ -38,8 +38,7 @@ class HomeRoute extends StatelessWidget {
               Navigator.pushNamed(context, AppRoutes.controller);
             },
             style: ElevatedButton.styleFrom(
-              minimumSize: Size(double.infinity,
-                  50), // double.infinity is the width and 50 is the height
+              minimumSize: Size(double.infinity, 50), // double.infinity is the width and 50 is the height
             ),
             child: Text(
               "Controller",
@@ -51,5 +50,3 @@ class HomeRoute extends StatelessWidget {
     );
   }
 }
-
-

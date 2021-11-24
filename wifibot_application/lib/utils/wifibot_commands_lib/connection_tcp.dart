@@ -9,7 +9,6 @@ import 'package:wifibot_application/utils/wifibot_commands_lib/data_wifibot.dart
 
 ///  Class to manage the TCP connection  with the Wifibot.
 class ConnectionTCP {
-
   Socket? _socketWifiBot;
 
   static bool _wifibotIsConnected = false;
@@ -20,7 +19,11 @@ class ConnectionTCP {
   ConnectionTCP();
 
   /// Method to connect to the wifibot using TCP
-  Future<void> connect({String wifiBotIPAddress = WifibotConstants.wifiBotIPAddressDefault, int wifiBotTCPPort = WifibotConstants.tcpPortWifibotDefault, int timeoutDuration = WifibotConstants.timeoutDurationTCPDefault}) async {
+  Future<void> connect({
+    String wifiBotIPAddress = WifibotConstants.wifiBotIPAddressDefault,
+    int wifiBotTCPPort = WifibotConstants.tcpPortWifibotDefault,
+    int timeoutDuration = WifibotConstants.timeoutDurationTCPDefault,
+  }) async {
     try {
       print("Starting the connection");
       _socketWifiBot = await Socket.connect(wifiBotIPAddress, wifiBotTCPPort)
@@ -38,7 +41,7 @@ class ConnectionTCP {
   }
 
   /// Method to send a command to the wifibot after the connection
-  void send(String commandString)  {
+  void send(String commandString) {
     if (_wifibotIsConnected) {
       _socketWifiBot?.add(utf8.encode(commandString));
       print('Command "$commandString" is sent');
@@ -62,32 +65,29 @@ class ConnectionTCP {
 
   /// Request data from the robot
   Map? receiveDataWifiBot() {
-
     Map? dataWifibotMap;
 
     if (_wifibotIsConnected) {
       // We need to send the message "init" at first.
-      if(!dataRequestingIsInitialized){
+      if (!dataRequestingIsInitialized) {
         send("init");
         String response = receive();
         // Then the robot should respond once with "OK".
-        if(response == "ok"){
+        if (response == "ok") {
           dataRequestingIsInitialized = true;
         } else {
           print("WARNING - OK NOT RECEIVED");
         }
-
       }
 
       // Then we request the data
-      if(dataRequestingIsInitialized){
+      if (dataRequestingIsInitialized) {
         send("data");
         String rawDataString = receive();
         DataWifibot dataWifibot = DataWifibot.withRawDataPacketString(rawDataString);
         dataWifibotMap = dataWifibot.dataWifibotMap;
       }
-    }
-    else {
+    } else {
       print("NOT CONNECTED - receiveDataWifiBot");
     }
 
